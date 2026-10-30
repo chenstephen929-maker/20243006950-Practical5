@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="municipalities_array">
+        <!-- Beijing: 97 words. Official sources:
+             https://english.beijing.gov.cn/beijinginfo/index.html
+             https://english.beijing.gov.cn/beijinginfo/facts/202006/t20200601_1912281.html
+             https://english.beijing.gov.cn/travellinginbeijing/mustvisitsites/
+             https://english.beijing.gov.cn/beijinginfo/culture/202005/t20200515_1898145.html
+        -->
+        <item>Beijing, China\'s capital, stands at the northern edge of the North China Plain, with mountains enclosing much of its western and northern landscape. The municipality combines national political responsibilities with major roles in culture, international exchange, science, and technology. Its long imperial history remains visible in the Forbidden City, the Temple of Heaven, and the Summer Palace. Traditional hutong lanes add a smaller, everyday scale to the historic city. Beijing\'s climate brings hot, rainy summers and cold, dry winters. For visitors and students, its monuments and modern institutions offer a wide view of China\'s past and present.</item>
+        <!-- Shanghai: 100 words. Official sources:
+             https://english.shanghai.gov.cn/en-Overview/20231212/c9aa0f22df154557bbbbb30d996eb2b2.html
+             https://english.shanghai.gov.cn/assets/Download/2021-ShanghaiBasicFacts.pdf
+             https://english.shanghai.gov.cn/en-ScenicSpots/20231205/584672cc6d044eabb5f7f6fc9049a19f.html
+             https://english.shanghai.gov.cn/en-PlanANightOut/20260813/7641656790524617b222204060989e54.html
+        -->
+        <item>Shanghai is a coastal municipality at the mouth of the Yangtze River in eastern China. Its position in the Yangtze River Delta connects the city with a large regional economy and international sea routes. Shanghai developed into a major trading port in the nineteenth century and is now an important center for finance, trade, shipping, and innovation. Along the Huangpu River, the Bund preserves historic buildings associated with the city\'s commercial past, while Lujiazui presents a modern skyline. This combination of riverfront heritage and contemporary urban development gives Shanghai a distinctive setting for exploring China\'s engagement with the wider world.</item>
+        <!-- Chongqing: 100 words. Official sources:
+             https://english.cq.gov.cn/aboutchongqing/overview/Geography/
+             https://english.cq.gov.cn/aboutchongqing/culture/CulturalHeritage/
+             https://english.cq.gov.cn/specials/Eat/
+             https://english.cq.gov.cn/specials/explore/PhotoPerfectSpots/202608/t20260810_15912600.html
+        -->
+        <item>Chongqing is a large municipality in southwestern China, centered on the meeting of the Yangtze and Jialing rivers. Mountainous terrain shapes its layered streets, riverside neighborhoods, and identity as the Mountain City. The municipality includes urban districts, agricultural areas, valleys, and dramatic karst landscapes. Its central urban area serves as an administrative, commercial, financial, and transport hub. Chongqing\'s cultural heritage can be explored through the Dazu Rock Carvings, which were added to the UNESCO World Heritage List in 1999. Local food is equally distinctive: spicy hot pot and Chongqing noodles form an important part of the city\'s everyday culinary culture.</item>
+        <!-- Tianjin: 97 words. Official portal sources; the final source is
+             first-hand China Daily reporting republished by the municipal portal:
+             https://en.tj.gov.cn/tianjininfo/profile/202312/t20231225_6489676.html
+             https://en.tj.gov.cn/services/InvestinginTianjin/202312/t20231228_6493642.html
+             https://en.tj.gov.cn/Updates/News/202607/t20260731_7345506.html
+        -->
+        <item>Tianjin is a northern Chinese municipality on the Bohai Sea, closely connected with neighboring Beijing. The Haihe River runs through the city and reaches the sea, helping explain Tianjin\'s long history as a transportation and trading center. Its name, adopted during the Ming dynasty, refers to an imperial river crossing, and a garrison was established here in 1404. Today, Tianjin Port provides a maritime outlet for northern China\'s inland regions. The city\'s cultural traditions include Yangliuqing New Year woodblock prints and Niren Zhang clay figurines. Historic foreign-style buildings and traditional crafts offer different perspectives on Tianjin\'s development.</item>
+    </string-array>
+</resources>

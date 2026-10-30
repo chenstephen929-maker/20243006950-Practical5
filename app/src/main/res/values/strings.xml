@@ -4,4 +4,9 @@
     <string name="municipality_input_label">I want to know about:</string>
     <string name="municipality_input_hint">Enter a municipality name</string>
     <string name="main_image_description">Illustration of Chinese municipalities</string>
+    <string name="input_required">Please enter a municipality name.</string>
+    <string name="invalid_municipality">Enter Beijing, Shanghai, Tianjin or Chongqing.</string>
+    <string name="invalid_extra">Municipality information is missing or invalid.</string>
+    <string name="visit_site">Visit site</string>
+    <string name="municipality_image_description">Photograph of %1$s</string>
 </resources>

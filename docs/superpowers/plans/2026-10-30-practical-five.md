@@ -17,7 +17,7 @@
 - [x] 1. Student generated and pushed the initial Empty Views Activity scaffold (f758cd0).
 - [x] 2. Complete branding, five images, adaptive/legacy launcher icons and named colours; assemble the app.
 - [x] 3. Add four original 80-120-word summaries and primary-source notes; compile resources and check order/counts.
-- [ ] 4. Write processor tests, observe failing assertions, implement null/blank/case/whitespace validation and run JUnit.
+- [x] 4. Write processor tests, observe failing assertions, implement null/blank/case/whitespace validation and run JUnit.
 - [ ] 5. Add accessible main-screen XML with single-line Go input; assemble.
 - [ ] 6. Write navigation/error instrumentation tests, observe failures, implement explicit Intent and registered Municipality with safe extra handling; run tests.
 - [ ] 7. Add tests for all four resource combinations, implement dynamic image/summary/colour selection and run device tests.

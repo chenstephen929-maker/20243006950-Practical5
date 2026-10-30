@@ -13,3 +13,9 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Supplied teaching materials remain local; app assets are in res/.
+/Practical 5.pdf
+/Practical 5 - SubmissionGuidelines.pdf
+/Practical 5 - Resources.zip
+/Practical 5 - Resources/

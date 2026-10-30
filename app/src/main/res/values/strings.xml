@@ -9,4 +9,9 @@
     <string name="invalid_extra">Municipality information is missing or invalid.</string>
     <string name="visit_site">Visit site</string>
     <string name="municipality_image_description">Photograph of %1$s</string>
+    <string name="browser_unavailable">No application is available to open this website.</string>
+    <string name="website_beijing" translatable="false">https://english.beijing.gov.cn/</string>
+    <string name="website_shanghai" translatable="false">https://english.shanghai.gov.cn/</string>
+    <string name="website_chongqing" translatable="false">https://english.cq.gov.cn/</string>
+    <string name="website_tianjin" translatable="false">https://en.tj.gov.cn/</string>
 </resources>

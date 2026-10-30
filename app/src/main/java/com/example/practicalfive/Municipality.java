@@ -1,6 +1,10 @@
 package com.example.practicalfive;
 
 import android.os.Bundle;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
+import com.google.android.material.snackbar.Snackbar;
 import android.content.res.ColorStateList;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +21,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class Municipality extends AppCompatActivity {
     public static final String EXTRA_MUNICIPALITY = "com.example.practicalfive.MUNICIPALITY";
+
+    private String officialWebsite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +47,16 @@ public class Municipality extends AppCompatActivity {
         nameView.setTextColor(getColor(R.color.color_text_dark));
         setTitle(municipality);
         showMunicipality(municipality);
-        findViewById(R.id.visit_site).setEnabled(false);
+        Button visitSite = findViewById(R.id.visit_site);
+        visitSite.setOnClickListener(view -> {
+            Intent websiteIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(officialWebsite));
+            try {
+                startActivity(websiteIntent);
+            } catch (ActivityNotFoundException exception) {
+                Snackbar.make(findViewById(R.id.municipality_root),
+                        R.string.browser_unavailable, Snackbar.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void showMunicipality(String municipality) {
@@ -54,21 +69,25 @@ public class Municipality extends AppCompatActivity {
                 summaryIndex = 0;
                 imageResource = R.drawable.beijing;
                 colourResource = R.color.municipality_beijing;
+                officialWebsite = getString(R.string.website_beijing);
                 break;
             case "Shanghai":
                 summaryIndex = 1;
                 imageResource = R.drawable.shanghai;
                 colourResource = R.color.municipality_shanghai;
+                officialWebsite = getString(R.string.website_shanghai);
                 break;
             case "Chongqing":
                 summaryIndex = 2;
                 imageResource = R.drawable.chongqing;
                 colourResource = R.color.municipality_chongqing;
+                officialWebsite = getString(R.string.website_chongqing);
                 break;
             case "Tianjin":
                 summaryIndex = 3;
                 imageResource = R.drawable.tianjin;
                 colourResource = R.color.municipality_tianjin;
+                officialWebsite = getString(R.string.website_tianjin);
                 break;
             default:
                 finish();

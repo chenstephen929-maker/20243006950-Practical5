@@ -153,6 +153,49 @@ public class MunicipalityInstrumentedTest {
 
 
 
+    @Test
+    @SdkSuppress(minSdkVersion = 26)
+    public void visitSiteUsesImplicitActionViewAndEachCitysOfficialUrl() {
+        for (City city : CITIES) {
+            WebsiteMonitor monitor = new WebsiteMonitor(false);
+            INSTRUMENTATION.addMonitor(monitor);
+            try (ActivityScenario<Municipality> scenario =
+                         ActivityScenario.launch(detailIntent(city.name))) {
+                onView(withId(R.id.visit_site)).perform(click());
+                Intent requested = monitor.requested.get();
+                assertNotNull("Visit site did not launch an Intent for " + city.name, requested);
+                assertEquals(Intent.ACTION_VIEW, requested.getAction());
+                assertEquals(city.url, requested.getDataString());
+                assertNull("Website Intent must be implicit", requested.getComponent());
+                assertNull("Website Intent must allow any suitable application", requested.getPackage());
+                assertEquals("One click must launch one URL", 1, monitor.calls.get());
+                onView(withId(R.id.municipality_name)).check(matches(withText(city.name)));
+            } finally {
+                INSTRUMENTATION.removeMonitor(monitor);
+            }
+        }
+    }
+
+    @Test
+    @SdkSuppress(minSdkVersion = 26)
+    public void unavailableBrowserShowsErrorAndLeavesDetailUsable() {
+        WebsiteMonitor monitor = new WebsiteMonitor(true);
+        INSTRUMENTATION.addMonitor(monitor);
+        try (ActivityScenario<Municipality> scenario =
+                     ActivityScenario.launch(detailIntent("Beijing"))) {
+            onView(withId(R.id.visit_site)).perform(click());
+            assertEquals(1, monitor.calls.get());
+            assertNotNull(monitor.requested.get());
+            onView(withText(R.string.browser_unavailable)).check(matches(isDisplayed()));
+            onView(withId(R.id.municipality_name)).check(matches(withText("Beijing")));
+            onView(withId(R.id.visit_site)).check(matches(isDisplayed()));
+            onView(withId(R.id.visit_site)).check(matches(isClickable()));
+            assertEquals(Lifecycle.State.RESUMED, scenario.getState());
+        } finally {
+            INSTRUMENTATION.removeMonitor(monitor);
+        }
+    }
+
     private void assertInvalidMainInput(String input, int errorResource) {
         Instrumentation.ActivityMonitor monitor = INSTRUMENTATION.addMonitor(
                 Municipality.class.getName(), null, false);

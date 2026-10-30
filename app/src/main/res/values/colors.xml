@@ -8,7 +8,7 @@
     <color name="municipality_tianjin">#36454F</color>
     <color name="municipality_chongqing">#FF8C00</color>
 
-    <color name="color_text_light">#FFFFFF</color>
+    <color name="color_text_light">@color/white</color>
     <color name="color_text_dark">#202124</color>
     <color name="color_default_background">#FAFAFA</color>
 </resources>

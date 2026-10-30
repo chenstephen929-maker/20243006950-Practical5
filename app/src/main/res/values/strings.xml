@@ -2,7 +2,6 @@
     <string name="app_name">Chinese Municipalities</string>
     <string name="main_title">Municipalities in China</string>
     <string name="municipality_input_label">I want to know about:</string>
-    <string name="municipality_input_hint">Enter a municipality name</string>
     <string name="main_image_description">Illustration of Chinese municipalities</string>
     <string name="input_required">Please enter a municipality name.</string>
     <string name="invalid_municipality">Enter Beijing, Shanghai, Tianjin or Chongqing.</string>

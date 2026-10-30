@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
-import com.google.android.material.snackbar.Snackbar;
 import android.content.res.ColorStateList;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.google.android.material.snackbar.Snackbar;
 
 public class Municipality extends AppCompatActivity {
     public static final String EXTRA_MUNICIPALITY = "com.example.practicalfive.MUNICIPALITY";
@@ -42,9 +43,6 @@ public class Municipality extends AppCompatActivity {
             view.setPadding(bars.left, bars.top, bars.right, bars.bottom);
             return insets;
         });
-        TextView nameView = findViewById(R.id.municipality_name);
-        nameView.setText(municipality);
-        nameView.setTextColor(getColor(R.color.color_text_dark));
         setTitle(municipality);
         showMunicipality(municipality);
         Button visitSite = findViewById(R.id.visit_site);
@@ -103,6 +101,7 @@ public class Municipality extends AppCompatActivity {
         ScrollView informationScroll = findViewById(R.id.municipality_info_scroll);
         Button visitSite = findViewById(R.id.visit_site);
 
+        ViewCompat.setAccessibilityHeading(name, true);
         name.setText(municipality);
         name.setBackgroundColor(municipalityColour);
         name.setTextColor(foreground);

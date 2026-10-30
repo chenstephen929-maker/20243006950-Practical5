@@ -191,8 +191,72 @@ public class MunicipalityInstrumentedTest {
             onView(withId(R.id.visit_site)).check(matches(isDisplayed()));
             onView(withId(R.id.visit_site)).check(matches(isClickable()));
             assertEquals(Lifecycle.State.RESUMED, scenario.getState());
+            captureScreenshot("browser-unavailable");
         } finally {
             INSTRUMENTATION.removeMonitor(monitor);
+        }
+    }
+
+    @Test
+    public void mainLayoutProvidesSingleLineGoInput() {
+        try (ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class)) {
+            onView(withText(R.string.main_title)).check(matches(isDisplayed()));
+            onView(withId(R.id.municipality_input)).check(matches(isDisplayed()));
+            scenario.onActivity(activity -> {
+                android.widget.EditText input = activity.findViewById(R.id.municipality_input);
+                assertEquals(android.view.inputmethod.EditorInfo.IME_ACTION_GO,
+                        input.getImeOptions() & android.view.inputmethod.EditorInfo.IME_MASK_ACTION);
+                assertEquals(1, input.getMaxLines());
+            });
+            captureScreenshot("main");
+        }
+    }
+
+    @Test
+    public void physicalEnterOpensExactlyOneDetailActivity() {
+        Instrumentation.ActivityMonitor monitor = INSTRUMENTATION.addMonitor(
+                Municipality.class.getName(), null, false);
+        Activity detail = null;
+        try (ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class)) {
+            onView(withId(R.id.municipality_input)).perform(scrollTo(), click(), replaceText("tianjin"),
+                    androidx.test.espresso.action.ViewActions.closeSoftKeyboard(),
+                    androidx.test.espresso.action.ViewActions.pressKey(android.view.KeyEvent.KEYCODE_ENTER));
+            detail = monitor.waitForActivityWithTimeout(5000);
+            assertNotNull("Physical Enter must open Municipality", detail);
+            assertEquals("Tianjin", detail.getIntent().getStringExtra(Municipality.EXTRA_MUNICIPALITY));
+            assertEquals("One Enter must create exactly one Activity", 1, monitor.getHits());
+            onView(withId(R.id.municipality_name)).check(matches(withText("Tianjin")));
+        } finally {
+            if (detail != null) {
+                Activity openedDetail = detail;
+                INSTRUMENTATION.runOnMainSync(openedDetail::finish);
+                INSTRUMENTATION.waitForIdleSync();
+            }
+            INSTRUMENTATION.removeMonitor(monitor);
+        }
+    }
+
+    private void captureScreenshot(String name) {
+        INSTRUMENTATION.waitForIdleSync();
+        android.content.res.Configuration configuration = context().getResources().getConfiguration();
+        String suffix = configuration.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE
+                ? "-landscape" : "";
+        if (configuration.fontScale > 1.5f) {
+            suffix += "-large-text";
+        }
+        java.io.File directory = new java.io.File(context().getExternalFilesDir(null), "screenshots");
+        if (!directory.isDirectory() && !directory.mkdirs()) {
+            throw new AssertionError("Cannot create screenshot directory");
+        }
+        android.graphics.Bitmap screenshot = INSTRUMENTATION.getUiAutomation().takeScreenshot();
+        assertNotNull("Screenshot unavailable", screenshot);
+        try (java.io.FileOutputStream stream = new java.io.FileOutputStream(
+                new java.io.File(directory, name + suffix + ".png"))) {
+            assertTrue(screenshot.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, stream));
+        } catch (java.io.IOException exception) {
+            throw new AssertionError("Cannot write screenshot", exception);
+        } finally {
+            screenshot.recycle();
         }
     }
 
@@ -225,6 +289,8 @@ public class MunicipalityInstrumentedTest {
             Button visitSite = activity.findViewById(R.id.visit_site);
             ScrollView scroll = activity.findViewById(R.id.municipality_info_scroll);
             assertNotNull(scroll);
+            assertTrue("Summary viewport must fit a readable line: " + scroll.getHeight(),
+                    scroll.getHeight() >= information.getLineHeight());
 
             String[] summaries = activity.getResources().getStringArray(R.array.municipalities_array);
             assertEquals("Exactly four municipality summaries are required", 4, summaries.length);
@@ -258,6 +324,7 @@ public class MunicipalityInstrumentedTest {
                     ((BitmapDrawable) image.getDrawable()).getBitmap().sameAs(
                             ((BitmapDrawable) expectedImage).getBitmap()));
         });
+        captureScreenshot(city.name.toLowerCase(java.util.Locale.ROOT));
     }
 
     private void assertDetailFinishes(Intent intent) {

@@ -110,8 +110,32 @@ public class MunicipalityInstrumentedTest {
         assertInvalidMainInput("Guangzhou", R.string.invalid_municipality);
     }
 
+    @Test
+    public void everyMunicipalityDisplaysItsOwnSummaryImageAndColors() {
+        for (City city : CITIES) {
+            try (ActivityScenario<Municipality> scenario =
+                         ActivityScenario.launch(detailIntent(city.name))) {
+                assertDetail(scenario, city);
+            }
+        }
+    }
 
+    @Test
+    public void detailActivityNormalizesItsOwnIntentInput() {
+        try (ActivityScenario<Municipality> scenario =
+                     ActivityScenario.launch(detailIntent("  tIaNjIn  "))) {
+            assertDetail(scenario, CITIES[3]);
+        }
+    }
 
+    @Test
+    public void municipalitySelectionSurvivesActivityRecreation() {
+        try (ActivityScenario<Municipality> scenario =
+                     ActivityScenario.launch(detailIntent("Chongqing"))) {
+            scenario.recreate();
+            assertDetail(scenario, CITIES[2]);
+        }
+    }
 
     @Test
     public void missingOrInvalidIntentDataFinishesDetailSafely() {
@@ -172,6 +196,10 @@ public class MunicipalityInstrumentedTest {
             assertTrue("Name needs the municipality background", name.getBackground() instanceof ColorDrawable);
             assertEquals(cityColor, ((ColorDrawable) name.getBackground()).getColor());
             assertEquals(cityColor, information.getCurrentTextColor());
+            assertTrue(scroll.getBackground() instanceof ColorDrawable);
+            assertTrue("Information text must remain readable",
+                    ColorUtils.calculateContrast(information.getCurrentTextColor(),
+                            ((ColorDrawable) scroll.getBackground()).getColor()) >= 4.5);
             ColorStateList tint = visitSite.getBackgroundTintList();
             assertNotNull("Visit site requires its municipality color", tint);
             assertEquals(cityColor, tint.getColorForState(visitSite.getDrawableState(), tint.getDefaultColor()));
